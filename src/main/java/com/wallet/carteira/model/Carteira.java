@@ -34,4 +34,12 @@ public class Carteira {
 
     @Column(name = "DATA_CADASTRO")
     private LocalDateTime dataCadastro;
+
+    public static Carteira of(Usuario usuario) {
+        return Carteira.builder()
+                .saldo(BigDecimal.ZERO)
+                .usuario(usuario)
+                .dataCadastro(LocalDateTime.now())
+                .build();
+    }
 }
