@@ -1,4 +1,4 @@
-package com.wallet.comum.exceptions;
+package com.wallet.modules.comum.exceptions;
 
 public record ErrorResponse(
         Integer code,

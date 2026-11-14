@@ -1,6 +1,6 @@
-package com.wallet.usuario.model;
+package com.wallet.modules.usuario.model;
 
-import com.wallet.usuario.dto.UsuarioRequest;
+import com.wallet.modules.usuario.dto.UsuarioRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +25,7 @@ public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USUARIO")
     @SequenceGenerator(name = "SEQ_USUARIO", sequenceName = "SEQ_USUARIO",  allocationSize = 1)
-    private int id;
+    private Integer id;
 
     @Column(name = "NOME", nullable = false)
     private String nome;
@@ -39,11 +39,11 @@ public class Usuario implements UserDetails {
     @Column(name = "DATA_CADASTRO")
     private LocalDateTime dataCadastro;
 
-    public static Usuario of(UsuarioRequest request) {
+    public static Usuario of(UsuarioRequest request, String senhaCriptografada) {
         return Usuario.builder()
                 .nome(request.nome())
                 .email(request.email())
-                .senha(request.senha())
+                .senha(senhaCriptografada)
                 .dataCadastro(LocalDateTime.now())
                 .build();
     }

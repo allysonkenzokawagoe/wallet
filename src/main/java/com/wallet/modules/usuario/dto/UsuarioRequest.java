@@ -1,4 +1,4 @@
-package com.wallet.usuario.dto;
+package com.wallet.modules.usuario.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

@@ -1,7 +1,7 @@
-package com.wallet.carteira.model;
+package com.wallet.modules.carteira.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.wallet.usuario.model.Usuario;
+import com.wallet.modules.usuario.model.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

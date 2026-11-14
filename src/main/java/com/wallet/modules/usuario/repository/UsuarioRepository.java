@@ -1,10 +1,13 @@
-package com.wallet.usuario.repository;
+package com.wallet.modules.usuario.repository;
 
-import com.wallet.usuario.model.Usuario;
+import com.wallet.modules.usuario.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     boolean existsByEmailIgnoreCase(String email);
+    Optional<Usuario> findByEmailIgnoreCase(String email);
 }
