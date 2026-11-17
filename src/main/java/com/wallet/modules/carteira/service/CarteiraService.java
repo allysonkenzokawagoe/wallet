@@ -1,5 +1,6 @@
 package com.wallet.modules.carteira.service;
 
+import com.wallet.modules.carteira.dto.PagamentoRequest;
 import com.wallet.modules.carteira.model.Carteira;
 import com.wallet.modules.carteira.repository.CarteiraRepository;
 import com.wallet.modules.usuario.model.Usuario;
