@@ -1,5 +1,6 @@
 package com.wallet.modules.usuario.controller;
 
+import com.wallet.modules.auth.dto.LoginRequest;
 import com.wallet.modules.usuario.dto.UsuarioRequest;
 import com.wallet.modules.usuario.dto.UsuarioResponse;
 import com.wallet.modules.usuario.service.UsuarioService;
@@ -15,8 +16,8 @@ public class UsuarioController {
     private final UsuarioService service;
 
     @GetMapping("login")
-    public String login(@RequestBody String email) {
-        return service.login(email);
+    public String login(@RequestBody @Valid LoginRequest request) {
+        return service.login(request);
     }
 
     @PostMapping

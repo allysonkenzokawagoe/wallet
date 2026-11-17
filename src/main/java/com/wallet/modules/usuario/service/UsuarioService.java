@@ -1,5 +1,6 @@
 package com.wallet.modules.usuario.service;
 
+import com.wallet.modules.auth.dto.LoginRequest;
 import com.wallet.modules.carteira.service.CarteiraService;
 import com.wallet.modules.comum.exceptions.NotFoundException;
 import com.wallet.modules.comum.exceptions.ValidacaoException;
@@ -25,8 +26,11 @@ public class UsuarioService implements UserDetailsService {
     private final PasswordEncoder encoder;
     private final TokenService tokenService;
 
-    public String login(String email) {
-        var usuario = findByEmail(email);
+    public String login(LoginRequest request) {
+        var usuario = findByEmail(request.email());
+        if (!encoder.matches(request.password(), usuario.getSenha())) {
+            throw new ValidacaoException("Senha incorreta");
+        }
         return tokenService.gerarToken(usuario);
     }
 
