@@ -3,7 +3,7 @@ package com.wallet.modules.usuario.service;
 import com.wallet.modules.carteira.service.CarteiraService;
 import com.wallet.modules.comum.exceptions.NotFoundException;
 import com.wallet.modules.comum.exceptions.ValidacaoException;
-import com.wallet.modules.token.service.TokenService;
+import com.wallet.modules.auth.service.TokenService;
 import com.wallet.modules.usuario.dto.UsuarioRequest;
 import com.wallet.modules.usuario.dto.UsuarioResponse;
 import com.wallet.modules.usuario.model.Usuario;
@@ -26,7 +26,8 @@ public class UsuarioService implements UserDetailsService {
     private final TokenService tokenService;
 
     public String login(String email) {
-        return tokenService.gerarToken(email);
+        var usuario = findByEmail(email);
+        return tokenService.gerarToken(usuario);
     }
 
     @Transactional
@@ -51,6 +52,12 @@ public class UsuarioService implements UserDetailsService {
         if (repository.existsByEmailIgnoreCase(request.email())) {
             throw new ValidacaoException("Esse email ja está cadastrado no sistema!");
         }
+    }
+
+    private Usuario findByEmail(String email) {
+        return repository.findByEmailIgnoreCase(email).orElseThrow(
+                () -> new NotFoundException("Usuário não encontrado")
+        );
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.wallet.modules.token.service;
+package com.wallet.modules.auth.service;
 
 import com.nimbusds.jose.*;
 import com.nimbusds.jwt.JWTClaimsSet;
@@ -20,12 +20,15 @@ public class TokenService {
     private final JWSVerifier jwsVerifier;
 
     @SneakyThrows
-    public String gerarToken(String email) {
+    public String gerarToken(Usuario usuario) {
         var header = new JWSHeader(JWSAlgorithm.HS256);
         var claims = new JWTClaimsSet.Builder()
-                .subject(email)
+                .subject(usuario.getEmail())
                 .expirationTime(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))
                 .issueTime(new Date())
+                .claim("id", usuario.getId())
+                .claim("email", usuario.getEmail())
+                .claim("nome", usuario.getNome())
                 .build();
 
         var jwt = new SignedJWT(header, claims);
