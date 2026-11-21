@@ -15,7 +15,7 @@ public class UsuarioController {
 
     private final UsuarioService service;
 
-    @GetMapping("login")
+    @PostMapping("login")
     public String login(@RequestBody @Valid LoginRequest request) {
         return service.login(request);
     }

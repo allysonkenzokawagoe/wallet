@@ -17,7 +17,6 @@ import java.util.Date;
 public class TokenService {
 
     private final JWSSigner signer;
-    private final JWSVerifier jwsVerifier;
 
     @SneakyThrows
     public String gerarToken(Usuario usuario) {
@@ -35,5 +34,11 @@ public class TokenService {
         jwt.sign(signer);
 
         return jwt.serialize();
+    }
+
+    @SneakyThrows
+    public String validarToken(String token) {
+        var jwt = SignedJWT.parse(token);
+        return jwt.getJWTClaimsSet().getSubject();
     }
 }
