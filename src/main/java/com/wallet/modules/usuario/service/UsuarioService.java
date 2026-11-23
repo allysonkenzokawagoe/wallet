@@ -58,7 +58,7 @@ public class UsuarioService implements UserDetailsService {
         }
     }
 
-    private Usuario findByEmail(String email) {
+    public Usuario findByEmail(String email) {
         return repository.findByEmailIgnoreCase(email).orElseThrow(
                 () -> new NotFoundException("Usuário não encontrado")
         );

@@ -1,5 +1,6 @@
 package com.wallet.modules.auth.dto;
 
+import com.wallet.modules.usuario.model.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +20,11 @@ public class UsuarioAutenticado {
         this.id = (Integer) attributes.get("id");
         this.email = (String) attributes.get("email");
         this.nome = (String) attributes.get("nome");
+    }
+
+    public UsuarioAutenticado(Usuario usuario) {
+        this.id = usuario.getId();
+        this.email = usuario.getEmail();
+        this.nome = usuario.getNome();
     }
 }
