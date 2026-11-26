@@ -2,8 +2,6 @@ package com.wallet.modules.usuario.service;
 
 import com.wallet.modules.auth.dto.LoginRequest;
 import com.wallet.modules.auth.service.AutenticacaoService;
-import com.wallet.modules.carteira.dto.PagamentoRequest;
-import com.wallet.modules.carteira.model.Carteira;
 import com.wallet.modules.carteira.service.CarteiraService;
 import com.wallet.modules.comum.exceptions.NotFoundException;
 import com.wallet.modules.comum.exceptions.ValidacaoException;
@@ -66,23 +64,6 @@ public class UsuarioService implements UserDetailsService {
         return repository.findByEmailIgnoreCase(email).orElseThrow(
                 () -> new NotFoundException("Usuário não encontrado")
         );
-    }
-
-    @Transactional
-    public void realizarPagamento(PagamentoRequest request) {
-        var usuario = autenticacaoService.getUsuarioAutenticado();
-        var carteiraUsuarioLogado = carteiraService.findByUsuarioId(usuario.getId());
-        var carteiraDestino = carteiraService.findByUsuarioId(request.chave());
-        validarSaldoCarteira(request, carteiraUsuarioLogado);
-
-        carteiraUsuarioLogado.setSaldo(carteiraUsuarioLogado.getSaldo().min(request.valor()));
-        carteiraDestino.setSaldo(carteiraDestino.getSaldo().add(request.valor()));
-    }
-
-    private void validarSaldoCarteira(PagamentoRequest request, Carteira carteiraAtual) {
-        if (carteiraAtual.getSaldo().compareTo(request.valor()) < 0) {
-            throw new ValidacaoException("Você não possui saldo para realizar essa transação");
-        }
     }
 
     @Override
