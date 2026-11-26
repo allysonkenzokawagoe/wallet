@@ -1,7 +1,7 @@
 package com.wallet.modules.pagamento.service;
 
 import com.wallet.modules.auth.service.AutenticacaoService;
-import com.wallet.modules.carteira.dto.PagamentoRequest;
+import com.wallet.modules.pagamento.dto.PagamentoRequest;
 import com.wallet.modules.carteira.model.Carteira;
 import com.wallet.modules.carteira.service.CarteiraService;
 import com.wallet.modules.comum.exceptions.ValidacaoException;

@@ -1,6 +1,6 @@
 package com.wallet.modules.pagamento.controller;
 
-import com.wallet.modules.carteira.dto.PagamentoRequest;
+import com.wallet.modules.pagamento.dto.PagamentoRequest;
 import com.wallet.modules.pagamento.service.PagamentoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

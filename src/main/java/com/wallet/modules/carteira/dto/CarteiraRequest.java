@@ -4,10 +4,10 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
-public record PagamentoRequest(
+public record CarteiraRequest(
         @NotNull
-        Integer chave,
+        Integer carteiraId,
         @NotNull
         BigDecimal valor
-){
+) {
 }

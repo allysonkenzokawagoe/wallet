@@ -1,7 +1,6 @@
 package com.wallet.modules.usuario.dto;
 
 import com.wallet.modules.carteira.dto.CarteiraResponse;
-import com.wallet.modules.carteira.model.Carteira;
 import com.wallet.modules.usuario.model.Usuario;
 import lombok.Builder;
 
@@ -12,12 +11,12 @@ public record UsuarioResponse(
         String email,
         CarteiraResponse carteira
 ) {
-    public static UsuarioResponse of(Usuario usuario, Carteira carteira) {
+    public static UsuarioResponse of(Usuario usuario) {
         return UsuarioResponse.builder()
                 .id(usuario.getId())
                 .nome(usuario.getNome())
                 .email(usuario.getEmail())
-                .carteira(CarteiraResponse.of(carteira))
+                .carteira(CarteiraResponse.of(usuario.getCarteira()))
                 .build();
     }
 }

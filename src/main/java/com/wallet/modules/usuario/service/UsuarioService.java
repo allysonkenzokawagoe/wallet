@@ -1,7 +1,6 @@
 package com.wallet.modules.usuario.service;
 
 import com.wallet.modules.auth.dto.LoginRequest;
-import com.wallet.modules.auth.service.AutenticacaoService;
 import com.wallet.modules.carteira.service.CarteiraService;
 import com.wallet.modules.comum.exceptions.NotFoundException;
 import com.wallet.modules.comum.exceptions.ValidacaoException;
@@ -26,7 +25,6 @@ public class UsuarioService implements UserDetailsService {
     private final CarteiraService carteiraService;
     private final PasswordEncoder encoder;
     private final TokenService tokenService;
-    private final AutenticacaoService autenticacaoService;
 
     public String login(LoginRequest request) {
         var usuario = findByEmail(request.email());
@@ -45,8 +43,7 @@ public class UsuarioService implements UserDetailsService {
     }
 
     public UsuarioResponse getResponseById(Integer id) {
-        var carteira = carteiraService.findByUsuarioId(id);
-        return UsuarioResponse.of(findById(id), carteira);
+        return UsuarioResponse.of(findById(id));
     }
 
     public Usuario findById(Integer id) {

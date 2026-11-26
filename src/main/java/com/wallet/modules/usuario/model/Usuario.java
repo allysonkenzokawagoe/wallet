@@ -1,5 +1,6 @@
 package com.wallet.modules.usuario.model;
 
+import com.wallet.modules.carteira.model.Carteira;
 import com.wallet.modules.usuario.dto.UsuarioRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -38,6 +39,9 @@ public class Usuario implements UserDetails {
 
     @Column(name = "DATA_CADASTRO")
     private LocalDateTime dataCadastro;
+
+    @OneToOne(mappedBy = "usuario")
+    private Carteira carteira;
 
     public static Usuario of(UsuarioRequest request, String senhaCriptografada) {
         return Usuario.builder()
