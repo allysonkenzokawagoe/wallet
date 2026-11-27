@@ -17,7 +17,7 @@ public class UsuarioAutenticado {
     private String nome;
 
     public UsuarioAutenticado(Map<String, Object> attributes) {
-        this.id = (Integer) attributes.get("id");
+        this.id = Math.toIntExact((Long) attributes.get("id"));
         this.email = (String) attributes.get("email");
         this.nome = (String) attributes.get("nome");
     }

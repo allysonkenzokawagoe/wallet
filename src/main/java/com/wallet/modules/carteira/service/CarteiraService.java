@@ -15,8 +15,8 @@ public class CarteiraService {
 
     private final CarteiraRepository repository;
 
-    public void save(Usuario usuario) {
-        repository.save(Carteira.of(usuario));
+    public void save(Carteira carteira) {
+        repository.save(carteira);
     }
 
     public Carteira findByUsuarioId(Integer usuarioId) {

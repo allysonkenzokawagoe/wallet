@@ -1,6 +1,6 @@
 package com.wallet.modules.auth.service;
 
-import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import com.wallet.modules.auth.dto.UsuarioAutenticado;
 import com.wallet.modules.comum.utils.TokenUtils;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +13,9 @@ public class AutenticacaoService {
 
     @SneakyThrows
     public UsuarioAutenticado getUsuarioAutenticado() {
-        var username = TokenUtils.getHeaderToken();
-        var usuario = JWTClaimsSet.parse(username).getClaims();
-        return new UsuarioAutenticado(usuario);
+        var token = TokenUtils.getHeaderToken();
+        var jwt = SignedJWT.parse(token);
+        var claims = jwt.getJWTClaimsSet().getClaims();
+        return new UsuarioAutenticado(claims);
     }
 }

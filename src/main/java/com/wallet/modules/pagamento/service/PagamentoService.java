@@ -19,12 +19,19 @@ public class PagamentoService {
     @Transactional
     public void realizarPagamento(PagamentoRequest request) {
         var usuario = autenticacaoService.getUsuarioAutenticado();
+        validarPagamentoSiMesmo(usuario.getId(), request.chave());
         var carteiraUsuarioLogado = carteiraService.findByUsuarioId(usuario.getId());
-        var carteiraDestino = carteiraService.findByUsuarioId(request.chave());
         validarSaldoCarteira(request, carteiraUsuarioLogado);
+        var carteiraDestino = carteiraService.findByUsuarioId(request.chave());
 
-        carteiraUsuarioLogado.setSaldo(carteiraUsuarioLogado.getSaldo().min(request.valor()));
+        carteiraUsuarioLogado.setSaldo(carteiraUsuarioLogado.getSaldo().subtract(request.valor()));
         carteiraDestino.setSaldo(carteiraDestino.getSaldo().add(request.valor()));
+    }
+
+    private void validarPagamentoSiMesmo(Integer usuarioId, Integer chave) {
+        if (usuarioId.equals(chave)) {
+            throw new ValidacaoException("Não é possivel realizar o pagamento para si mesmo");
+        }
     }
 
     private void validarSaldoCarteira(PagamentoRequest request, Carteira carteiraAtual) {

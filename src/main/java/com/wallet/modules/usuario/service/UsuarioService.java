@@ -1,6 +1,7 @@
 package com.wallet.modules.usuario.service;
 
 import com.wallet.modules.auth.dto.LoginRequest;
+import com.wallet.modules.carteira.model.Carteira;
 import com.wallet.modules.carteira.service.CarteiraService;
 import com.wallet.modules.comum.exceptions.NotFoundException;
 import com.wallet.modules.comum.exceptions.ValidacaoException;
@@ -39,7 +40,7 @@ public class UsuarioService implements UserDetailsService {
         validarEmail(request);
         var senhaCriptografada = encoder.encode(request.senha());
         var usuarioSalvo = repository.save(Usuario.of(request, senhaCriptografada));
-        carteiraService.save(usuarioSalvo);
+        carteiraService.save(Carteira.of(usuarioSalvo));
     }
 
     public UsuarioResponse getResponseById(Integer id) {
